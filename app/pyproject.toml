@@ -9,10 +9,10 @@ readme="README.md"
 # dependancies for production
 [tool.poetry.dependencies]
 python="^3.10"
-django="^3.2"
-psycopg2-binary="^2.9.5"
-python-dotenv="^0.21.1"
-gunicorn="^20.1.0"
+django="3.2"
+psycopg2-binary="2.9.5"
+python-dotenv="0.21.1"
+gunicorn="20.1.0"
 
 # dependancies for development
 [tool.poetry.dev-dependencies]
@@ -40,11 +40,6 @@ black = "22.3.0"
 pytest = "6.2.2"
 django-debug-toolbar = "3.8.1"
 pre-commit="2.15.0"
-
-[flake8]
-max-line-length = 120
-extend-ignore ="F401,D100,D300,A002,Q002,DAR201,WPS305,I002,I003,I004,Q000,D100,D101,D104"
-exclude = "manage.py"
 
 # default settings
 [build-system]
