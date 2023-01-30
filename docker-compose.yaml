@@ -1,0 +1,33 @@
+version: '3.8'
+services:
+  db:    
+    image: postgres:15    
+    ports:
+      - '5432:5432'
+    volumes:    
+      - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql
+      - postgres_data:/var/lib/postgresql/data
+    env_file:
+      - ./.env
+  app:
+    build: ./app    
+    volumes:
+      - ./app:/app 
+      - ./app/static:/app/static
+    expose:
+      - 8000    
+    env_file:
+      - ./.env
+    depends_on:
+      - db
+  nginx:
+    build: ./nginx
+    volumes:
+      - ./app/static:/app/static:ro  
+      - ./nginx/nginx.conf:/nginx/nginx.conf:ro
+    ports:
+      - 8000:80
+    depends_on:
+      - app
+volumes:
+  postgres_data: 
