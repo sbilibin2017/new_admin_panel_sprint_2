@@ -1,2 +1,4 @@
 .env
 app/static
+app/movies/migrations/
+app/movies/locale/

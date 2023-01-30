@@ -8,11 +8,13 @@ readme="README.md"
 
 # dependancies for production
 [tool.poetry.dependencies]
-python="^3.10"
-django="3.2"
+python="3.10.9"
+django="3.2.4"
 psycopg2-binary="2.9.5"
 python-dotenv="0.21.1"
 gunicorn="20.1.0"
+django-split-settings="1.2.0"
+django-postgres-extra="2.0.6" 
 
 # dependancies for development
 [tool.poetry.dev-dependencies]
