@@ -14,7 +14,7 @@ load_dotenv(BASE_DIR / '.env')
 # секрет джанго
 SECRET_KEY = os.getenv('SECRET_KEY')
 # режим запуска
-DEBUG = os.getenv('DEBUG') == 'True'
+DEBUG = int(bool(os.getenv('DEBUG')))
 # доступные порты в режиме деплоя (DEBUG=False)
 ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS').split(',')
 # для панели дебага
@@ -40,7 +40,16 @@ USE_L10N = True
 USE_TZ = True
 # директория со стотическими файлами
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
+STATIC_ROOT = BASE_DIR / 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # директория с локализацией
 LOCALE_PATHS = ['movies/locale']
+
+
+def custom_show_toolbar(request):
+    return True  # Always show toolbar, for example purposes only.
+
+
+DEBUG_TOOLBAR_CONFIG = {
+    'SHOW_TOOLBAR_CALLBACK': custom_show_toolbar,
+}
