@@ -31,6 +31,15 @@ services:
       - 8000:80
     depends_on:
       - app
-      
+
+  sqlite_to_postgres:
+    build: ./sqlite_to_postgres    
+    volumes:
+      - ./sqlite_to_postgres:/sqlite_to_postgres        
+    env_file:
+      - ./.env
+    depends_on:
+      - nginx
+
 volumes:
   postgres_data: 
