@@ -23,21 +23,8 @@ INTERNAL_IPS = os.getenv('INTERNAL_IPS').split(',')
 ROOT_URLCONF = 'config.urls'
 # вебсервер
 WSGI_APPLICATION = 'config.wsgi.application'
-# компоненты, выведенные в отдельный модуль
-include(
-    'components/databases.py',
-    'components/installed_apps.py',
-    'components/middleware.py',
-    'components/templates.py',
-    'components/auth_password_validators.py',
-)
 # язык
 LANGUAGE_CODE = 'ru-RU'
-# время
-TIME_ZONE = 'UTC'
-USE_I18N = True
-USE_L10N = True
-USE_TZ = True
 # директория со стотическими файлами
 STATIC_URL = '/static/'
 STATIC_ROOT = BASE_DIR / 'static/'
@@ -45,11 +32,14 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # директория с локализацией
 LOCALE_PATHS = ['movies/locale']
 
-
-def custom_show_toolbar(request):
-    return True  # Always show toolbar, for example purposes only.
-
-
-DEBUG_TOOLBAR_CONFIG = {
-    'SHOW_TOOLBAR_CALLBACK': custom_show_toolbar,
-}
+# компоненты, выведенные в отдельный модуль
+include(
+    'components/databases.py',
+    'components/installed_apps.py',
+    'components/middleware.py',
+    'components/templates.py',
+    'components/auth_password_validators.py',
+    'components/debug_toolbar.py',
+    'components/time.py',
+    'components/restframework.py',
+)

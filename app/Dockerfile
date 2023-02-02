@@ -4,6 +4,7 @@ FROM python:3.10
 # переменные окружения
 ENV PYTHONDONTWRITEBYTECODE=1
 ENV PYTHONUNBUFFERED=1
+ENV PYTHONPATH "${PYTHONPATH}:/app"
 
 # рабочая директория
 WORKDIR /app

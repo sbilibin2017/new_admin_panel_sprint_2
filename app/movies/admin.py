@@ -1,7 +1,9 @@
+'''Django админ панель.'''
+
 from django.contrib import admin
 from django.utils.translation import gettext_lazy as _
-
-from .models import Filmwork, FilmworkGenre, FilmworkPerson, Genre, Person
+from movies.models import (Filmwork, FilmworkGenre, FilmworkPerson, Genre,
+                           Person)
 
 
 def custom_titled_filter(title):
@@ -37,10 +39,7 @@ class PersonFilmworkInline(admin.TabularInline):
 @admin.register(Filmwork)
 class FilmworkAdmin(admin.ModelAdmin):
     # отображение жанров и персона в кинопроизведении
-    inlines = (
-        GenreFilmworkInline,
-        PersonFilmworkInline,
-    )
+    inlines = (GenreFilmworkInline, PersonFilmworkInline)
     # Отображение полей в списке
     list_display = ('title', 'description', 'type', 'rating', 'creation_date')
     # # фильтры
