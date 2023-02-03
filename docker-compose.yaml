@@ -1,7 +1,7 @@
 version: '3.8'
 services:
   db:    
-    image: postgres:15 
+    image: postgres:15     
     volumes:    
       - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql 
       - postgres_data:/var/lib/postgresql/data
@@ -9,7 +9,7 @@ services:
       - ./.env
 
   app:
-    build: ./app    
+    build: ./app     
     volumes:
       - ./app:/app 
       - static_volume:/app/static 
@@ -21,7 +21,7 @@ services:
       - db
 
   nginx:
-    build: ./nginx
+    build: ./nginx    
     volumes:
       - static_volume:/app/static:ro
       - ./nginx/nginx.conf:/nginx/nginx.conf:ro
@@ -31,7 +31,7 @@ services:
       - app
 
   etl:
-    build: ./etl    
+    build: ./etl       
     volumes:
       - ./etl:/etl        
     env_file:

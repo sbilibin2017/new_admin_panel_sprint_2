@@ -22,8 +22,6 @@ echo "\nApplying movies fake zero migration..."
 # для movies делаем фейковую миграцию
 python3 manage.py migrate --fake movies 0001
 echo "Applying movies migrations..."
-# для movies применяем оставшиеся миграции
-python3 manage.py migrate movies
 
 echo "\nCollecting static..."
 # собираем статику

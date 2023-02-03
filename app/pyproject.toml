@@ -8,41 +8,30 @@ readme="README.md"
 
 # dependancies for production
 [tool.poetry.dependencies]
-python="^3.10"
 django="3.2.4"
-psycopg2-binary="2.9.5"
-python-dotenv="0.21.1"
-gunicorn="20.1.0"
 django-split-settings="1.2.0"
 django-postgres-extra="2.0.6" 
 djangorestframework="3.14.0"
+django-extensions="3.2.1"
+django-debug-toolbar="3.8.1"
+gunicorn="20.1.0"
+python="^3.10"
+python-dotenv="0.21.1"
+psycopg2-binary="2.9.5"
+requests="2.28.2"
 
 # dependancies for development
 [tool.poetry.dev-dependencies]
-flake8="3.9.1"
-flake8-blind-except="0.2.1"
-flake8-broken-line="0.5.0"
-flake8-bugbear="22.9.23"
-flake8-builtins="2.0.0"
-flake8-class-attributes-order="0.1.3"
-flake8-cognitive-complexity="0.1.0"
-flake8-commas="2.1.0"
-flake8-comprehensions="3.10.0"
-flake8-debugger="4.1.2"
-flake8-eradicate="1.4.0"
-flake8-functions="0.0.7"
-flake8-isort="4.0"
-flake8-mutable="1.2.0"
-flake8-print="5.0.0"
-flake8-pytest="1.4"
-flake8-pytest-style="1.6.0"
-flake8-quotes="3.3.1"
-flake8-string-format="0.3.0"
-flake8-variables-names="0.0.5"
-black = "22.3.0"
-pytest = "6.2.5"
-django-debug-toolbar = "3.8.1"
-requests = "2.28"
+flake8="3.9.0"
+pytest="6.2.5"
+pre-commit="2.15.0"
+wemake-python-styleguide="0.15.3"
+flake8-bandit="2.1.2"
+bandit="1.7.2"
+pylint="2.15.10"
+autopep8="1.5.7"
+
+
 
 # default settings
 [build-system]
