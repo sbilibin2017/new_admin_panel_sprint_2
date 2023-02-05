@@ -3,9 +3,11 @@ from django.utils.translation import gettext_lazy as _
 
 
 class MoviesConfig(AppConfig):
+    """App config."""
+
     default_auto_field = "django.db.models.BigAutoField"
     name = "movies"
     verbose_name = _("movies")
 
     def ready(self):
-        from movies.api import signals
+        import movies.api.signals

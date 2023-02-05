@@ -6,7 +6,6 @@ from django.dispatch import receiver
 
 @receiver(post_save, sender="movies.Filmwork")
 def attention(sender, instance, created, **kwargs):
-
+    """Signal for premiere."""
     if created and instance.creation_date == datetime.date.today():
-        msg = f"Сегодня премьера {instance.title}! 🥳"
-        print(msg)
+        print(f"Сегодня премьера {instance.title}! 🥳")

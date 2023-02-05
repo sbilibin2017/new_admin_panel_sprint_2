@@ -6,10 +6,10 @@ repos:
         entry: black
         language: python
         types: [python]
-      # - id: flake8
-      #   name: flake8
-      #   description: wemake-python-styleguide enforcement
-      #   entry: flake8
-      #   args: ["--config=setup.cfg"]
-      #   language: python
-      #   types: [python]
+      - id: flake8
+        name: flake8
+        description: wemake-python-styleguide enforcement
+        entry: flake8
+        args: ["--config=setup.cfg"]
+        language: python
+        types: [python]

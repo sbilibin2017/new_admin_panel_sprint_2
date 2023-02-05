@@ -26,8 +26,8 @@ class MoviesApiMixin:
         return self.model.objects.values(
             "id", "title", "description", "creation_date", "type"
         ).annotate(
-            rating=Coalesce(F("rating"), 0.0),
-            genres=ArrayAgg("genres__name", distinct=True, default=list()),
+            rating=Coalesce(F("rating"), float(0)),
+            genres=ArrayAgg("genres__name", distinct=True, default=[]),
             actors=self.filter_role("actor"),
             directors=self.filter_role("director"),
             writers=self.filter_role("writer"),
