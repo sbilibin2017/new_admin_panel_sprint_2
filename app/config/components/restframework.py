@@ -1,8 +1,10 @@
-REST_FRAMEWORK = {
-    "DEFAULT_PAGINATION_CLASS": "movies.api.v1.paginators.MyPaginator",
-    "PAGE_SIZE": 50,
-    "DEFAULT_AUTHENTICATION_CLASSES": [
-        "rest_framework.authentication.BasicAuthentication",
-        "rest_framework.authentication.SessionAuthentication",
-    ],
-}
+# REST_FRAMEWORK = {
+#     "DEFAULT_PAGINATION_CLASS": "movies.api.v1.paginations.MoviesViewSetPaginator",
+#     "PAGE_SIZE": 50,
+# }
+
+# REST_FRAMEWORK = {
+#     'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend']
+# }
+
+REST_FRAMEWORK = {}

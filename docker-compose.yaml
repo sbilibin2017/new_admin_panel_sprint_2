@@ -12,6 +12,7 @@ services:
     build: ./app
     volumes:
       - ./app:/app
+      - static_volume:/app/static
     expose:
       - 8000
     env_file:
@@ -22,7 +23,7 @@ services:
   nginx:
     image: nginx:${NGINX_VERSION}
     volumes:
-      - ./app/static:/app/static
+      - static_volume:/app/static
       - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
       - ./nginx/conf.d:/etc/nginx/conf.d:ro
     ports:
@@ -41,5 +42,6 @@ services:
 
 volumes:
   postgres_data:
+  static_volume:
 
 
