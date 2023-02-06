@@ -23,16 +23,33 @@ class MoviesApiMixin:
             default=[],
         )
 
+    def add_genre_filter(self, queryset):
+        genre = self.request.GET.get("genre")
+        if genre is not None:
+            queryset = queryset.filter(genres__contains=[genre])
+        return queryset
+
+    def add_title_filter(self, queryset):
+        title = self.request.GET.get("title")
+        if title is not None:
+            queryset = queryset.filter(title__icontains=title)
+        return queryset
+
     def get_queryset(self):
-        return self.model.objects.values(
+        """Build queryset."""
+        queryset = self.model.objects.values(
             "id", "title", "description", "creation_date", "type"
         ).annotate(
-            rating=Coalesce(F("rating"), float(0)),
+            rating=Coalesce(F("rating"), 0.0),
             genres=ArrayAgg("genres__name", distinct=True, default=[]),
             actors=self.filter_role("actor"),
             directors=self.filter_role("director"),
             writers=self.filter_role("writer"),
         )
+        queryset = self.add_genre_filter(queryset)
+        queryset = self.add_title_filter(queryset)
+
+        return queryset
 
     def render_to_response(self, context, **response_kwargs):
         return JsonResponse(context)
