@@ -2,6 +2,7 @@ from django.contrib.postgres.aggregates import ArrayAgg
 from django.db.models import F, Q
 from django.db.models.functions import Coalesce
 from django.http import JsonResponse
+from django.shortcuts import get_object_or_404
 from django.views.generic.detail import DetailView
 from django.views.generic.list import BaseListView
 from movies.models import Filmwork
@@ -62,9 +63,8 @@ class MoviesListApi(MoviesApiMixin, BaseListView):
         }
 
     def get_context_data(self, *, object_list=None, **kwargs):
-        queryset = self.get_queryset()
         paginator, page, queryset, is_paginated = self.paginate_queryset(
-            queryset, self.paginate_by
+            self.get_queryset(), self.paginate_by
         )
         context = self.prepare_context_data(paginator, page, queryset, is_paginated)
         return context
