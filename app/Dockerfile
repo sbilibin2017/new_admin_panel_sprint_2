@@ -4,25 +4,30 @@ FROM python:3.10
 # переменные окружения
 ENV PYTHONDONTWRITEBYTECODE=1
 ENV PYTHONUNBUFFERED=1
-ENV PYTHONPATH "${PYTHONPATH}:/app"
+ENV DJANGO_SETTINGS_MODULE 'config.settings'
 
-# рабочая директория
+
+ENV TZ=Europe/Moscow
+RUN apt install tzdata
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+
+RUN apt-get update && apt-get install -y --no-install-recommends gcc
+
+
 WORKDIR /app
-
-# устанавливаем netcat
-RUN apt-get update && apt-get install -y netcat
-
-COPY pyproject.toml .
-RUN pip3 install poetry
-RUN poetry config virtualenvs.create false
-RUN poetry install 
 
 # копируем код
 COPY . .
 
+RUN pip install --upgrade pip && \
+    pip install -r requirements.txt    
+
 # даем права на редактирование
-RUN sed -i 's/\r$//g' /app/entrypoint.sh
 RUN chmod +x /app/entrypoint.sh
+
+RUN groupadd -r django && useradd -d /app -r -g django django \
+    && chown django:django -R /app
+USER django
 
 # выполняем код в точке входа
 ENTRYPOINT ["/app/entrypoint.sh"]

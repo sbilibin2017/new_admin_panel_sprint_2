@@ -3,25 +3,13 @@
 # ждем подключение к БД
 sleep 1 
 
-# создаем миграции
-echo "\nCreating migrations..."
-python3 manage.py makemigrations 
-
 # список миграций
 echo "\nMigrations list..."
 python3 manage.py showmigrations 
 
-echo "\nApplying migrations for django default tables..."
+echo "Applying migrations..."
 # применяем миграции
-python3 manage.py migrate admin
-python3 manage.py migrate auth
-python3 manage.py migrate contenttypes
-python3 manage.py migrate sessions
-
-echo "\nApplying movies fake zero migration..."
-# для movies делаем фейковую миграцию
-python3 manage.py migrate --fake movies 0001
-echo "Applying movies migrations..."
+python3 manage.py migrate --fake 
 
 echo "\nCollecting static..."
 # собираем статику
@@ -29,14 +17,10 @@ python3 manage.py collectstatic --noinput
 
 
 echo "\nCreating superuser..."
-if [ "$DJANGO_SUPERUSER_USERNAME" ]
-then
-    python manage.py createsuperuser \
-        --noinput \
-        --username $DJANGO_SUPERUSER_USERNAME \
-        --email $DJANGO_SUPERUSER_EMAIL
-fi
-$@
+python3 manage.py createsuperuser \
+    --noinput \
+    --username $DJANGO_SUPERUSER_USERNAME \
+    --email $DJANGO_SUPERUSER_EMAIL
 
 
 # поднимаем сервер

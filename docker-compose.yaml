@@ -3,7 +3,7 @@ services:
   db:
     image: postgres:${POSTGRES_VERSION}
     volumes:
-      - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql
+      - ./db/backup.sql:/docker-entrypoint-initdb.d/init.sql
       - postgres_data:/var/lib/postgresql/data
     env_file:
       - ./.env
@@ -29,16 +29,7 @@ services:
     ports:
       - 8000:80
     depends_on:
-      - app
-
-  etl:
-    build: ./etl
-    volumes:
-      - ./etl:/etl
-    env_file:
-      - ./.env
-    depends_on:
-      - nginx
+      - app  
 
 volumes:
   postgres_data:
