@@ -2,10 +2,13 @@
 app/static
 app/movies/migrations/
 app/movies/locale/
+.mypy_cache/
 
 # Byte-compiled / optimized / DLL files
-*/__pycache__
+*__pycache__
 *.py[cod]
+
+
 
 # C extensions
 *.so

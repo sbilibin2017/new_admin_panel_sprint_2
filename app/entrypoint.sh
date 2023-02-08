@@ -1,30 +1,15 @@
 #!/bin/sh
 
-# ждем подключение к БД
-sleep 1 
-
-# список миграций
-echo "\nMigrations list..."
-python3 manage.py showmigrations 
-
-echo "Applying migrations..."
-# применяем миграции
+# migrations
 python3 manage.py migrate --fake 
-
-echo "\nCollecting static..."
-# собираем статику
+# static
 python3 manage.py collectstatic --noinput
-
-
-echo "\nCreating superuser..."
+# superuser
 python3 manage.py createsuperuser \
     --noinput \
     --username $DJANGO_SUPERUSER_USERNAME \
     --email $DJANGO_SUPERUSER_EMAIL
-
-
-# поднимаем сервер
-echo "\nRunning django app with gunicorn..."
+# run server
 gunicorn config.wsgi:application --bind 0.0.0.0:8000
 
 
