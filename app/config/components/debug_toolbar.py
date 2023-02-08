@@ -1,4 +1,5 @@
 import requests
+from config.settings import DEBUG
 
 
 def custom_show_toolbar(request: requests.models.Response) -> bool:
@@ -6,6 +7,7 @@ def custom_show_toolbar(request: requests.models.Response) -> bool:
     return True
 
 
-DEBUG_TOOLBAR_CONFIG = {
-    'SHOW_TOOLBAR_CALLBACK': custom_show_toolbar,
-}
+if bool(int(DEBUG)):
+    DEBUG_TOOLBAR_CONFIG = {
+        'SHOW_TOOLBAR_CALLBACK': custom_show_toolbar,
+    }

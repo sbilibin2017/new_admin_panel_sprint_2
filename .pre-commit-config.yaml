@@ -1,8 +1,24 @@
 repos:
   - repo: local
     hooks:
+      - id: isort
+        name: isort
+        stages: [commit]
+        language: system
+        entry: pipenv run isort
+        types: [python]
+
       - id: black
         name: black
-        entry: black
+        stages: [commit]
+        language: system
+        entry: pipenv run black
+        types: [python]
+
+      - id: flake8
+        name: flake8
+        description: wemake-python-styleguide enforcement
+        entry: pipenv run flake8
+        args: ["--config=setup.cfg"]
         language: python
-        types: [python]    
+        types: [python]

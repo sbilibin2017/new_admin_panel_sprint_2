@@ -14,7 +14,7 @@ load_dotenv(BASE_DIR / ".env")
 # секрет джанго
 SECRET_KEY = os.getenv("SECRET_KEY")
 # режим запуска
-DEBUG = int(bool(os.getenv("DEBUG")))
+DEBUG = bool(int(os.getenv("DEBUG")))
 # доступные порты в режиме деплоя (DEBUG=False)
 ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS").split(",")
 # для панели дебага
@@ -43,4 +43,5 @@ include(
     "components/time.py",
     "components/restframework.py",
     "components/logging.py",
+    "components/orm_notebook.py",
 )
