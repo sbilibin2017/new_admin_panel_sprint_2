@@ -1,4 +1,5 @@
 from django.apps import AppConfig
+from django.core.signals import request_finished
 from django.utils.translation import gettext_lazy as _
 
 
@@ -10,4 +11,6 @@ class MoviesConfig(AppConfig):
     verbose_name = _("movies")
 
     def ready(self):
-        import movies.api.signals
+        from movies.api import signals
+
+        request_finished.connect(signals.attention)

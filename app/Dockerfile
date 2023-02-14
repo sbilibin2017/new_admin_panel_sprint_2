@@ -1,35 +1,39 @@
-# версия питона
+# base image
 FROM python:3.10
 
-# переменные окружения
+# enviironment variables
+ENV HOME=/
+ENV APP_HOME=/app
+ENV GROUP=django
+
+# create app directory
+RUN mkdir -p $APP_HOME
+WORKDIR $APP_HOME
+
+# create 
+RUN mkdir $APP_HOME/staticfiles
+RUN mkdir $APP_HOME/mediafiles
+
+# RUN groupadd -r $GROUP && \
+#     useradd -d $APP_HOME -r -g $GROUP $GROUP && \
+#     chown $GROUP:$GROUP -R $APP_HOME    
+
 ENV PYTHONDONTWRITEBYTECODE=1
 ENV PYTHONUNBUFFERED=1
 ENV DJANGO_SETTINGS_MODULE 'config.settings'
-ENV APP /app
-ENV GROUP django
-ENV TZ=Europe/Moscow
 
-RUN apt install tzdata
-RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
-RUN apt-get update && \
-    apt-get install -y --no-install-recommends gcc    
+RUN apt-get update && apt-get install -y gettext && apt install -y ncat
+RUN python -m pip install --upgrade pip
 
 COPY Pipfile Pipfile.lock ./
-RUN pip install pipenv && pipenv install --system --dev
+RUN pip install pipenv && pipenv install --system 
 
-WORKDIR ${APP}
+COPY . $APP_HOME
 
-# копируем код
-COPY . .
+EXPOSE 8000
 
-# даем права на редактирование
-RUN chmod +x ${APP}/entrypoint.sh
+RUN chmod +x ./entrypoint.sh
 
-# RUN groupadd -r ${GROUP} && useradd -d ${APP} -r -g ${GROUP} ${GROUP} \
-#     && chown ${GROUP}:${GROUP} -R ${APP}
-# USER ${GROUP}
+# USER $GROUP
 
-# выполняем код в точке входа
-ENTRYPOINT ["/app/entrypoint.sh"]
-
-
+ENTRYPOINT ["./entrypoint.sh"]

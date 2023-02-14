@@ -1,17 +1,23 @@
-#!/bin/sh
+#!/bin/bash
 
-# migrations
-python3 manage.py migrate --fake 
-# static
+echo "Waiting for postgres..."
+if [ "$DATABASE" = "postgres" ]
+then
+    echo "Waiting for postgres..."
+
+    while ! nc -z $POSTGRES_HOST $POSTGRES_PORT; do
+      sleep 1
+    done
+
+    echo "PostgreSQL started"
+fi
+
+python3 manage.py migrate --fake
 python3 manage.py collectstatic --noinput
-# superuser
 python3 manage.py createsuperuser \
-    --noinput \
-    --username $DJANGO_SUPERUSER_USERNAME \
-    --email $DJANGO_SUPERUSER_EMAIL
-# run server
-gunicorn config.wsgi:application --bind 0.0.0.0:8000
+        --noinput \
+        --username $DJANGO_SUPERUSER_USERNAME   
 
+gunicorn -b 0.0.0.0:8000 config.wsgi:application
 
-
-
+exec "$@"

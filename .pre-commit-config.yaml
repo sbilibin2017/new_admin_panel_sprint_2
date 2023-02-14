@@ -17,8 +17,8 @@ repos:
 
       - id: flake8
         name: flake8
-        description: wemake-python-styleguide enforcement
+        stages: [commit]
+        language: system
         entry: pipenv run flake8
-        args: ["--config=setup.cfg"]
-        language: python
         types: [python]
+        exclude: setup.py       

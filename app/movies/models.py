@@ -2,16 +2,24 @@
 
 import uuid
 
+from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
 from django.utils.translation import gettext_lazy as _
-from movies.constants import (
-    MAX_LENGTH,
-    SCHEMA,
-    blank_null_none,
-    blank_null_str,
-    rating_validator,
-)
 from psqlextra.indexes import UniqueIndex
+
+MAX_LENGTH = 255
+SCHEMA = "content"
+
+DEFAULT_PARAMETERS = {"blank": True, "null": True}
+BLANK_NULL_STR = {}
+BLANK_NULL_STR.update(DEFAULT_PARAMETERS)
+BLANK_NULL_STR["default"] = ""
+BLANK_NULL_NONE = {}
+BLANK_NULL_NONE.update(DEFAULT_PARAMETERS)
+BLANK_NULL_NONE["default"] = None
+
+RATING_VALIDATOR = [MinValueValidator(0), MaxValueValidator(100)]
+# --------------------------------------------
 
 
 class TimeStampedMixin(models.Model):
@@ -37,7 +45,7 @@ class Genre(UUIDMixin, TimeStampedMixin):
     """Класс для описания жанра."""
 
     name = models.CharField(max_length=MAX_LENGTH, verbose_name=_("Name"))
-    description = models.TextField(verbose_name=_("Description"), **blank_null_str)
+    description = models.TextField(verbose_name=_("Description"), **BLANK_NULL_STR)
 
     def __str__(self):
         return self.name
@@ -72,13 +80,13 @@ class Filmwork(UUIDMixin, TimeStampedMixin):
         tv_show = "TV_show", _("TV show")
 
     title = models.CharField(max_length=MAX_LENGTH, verbose_name=_("Title"))
-    description = models.TextField(verbose_name=_("Description"), **blank_null_str)
-    creation_date = models.DateField(verbose_name=_("Creation date"), **blank_null_none)
-    file_path = models.FileField(verbose_name=_("File path"), **blank_null_str)
+    description = models.TextField(verbose_name=_("Description"), **BLANK_NULL_STR)
+    creation_date = models.DateField(verbose_name=_("Creation date"), **BLANK_NULL_NONE)
+    file_path = models.FileField(verbose_name=_("File path"), **BLANK_NULL_STR)
     rating = models.FloatField(
-        validators=rating_validator,
+        validators=RATING_VALIDATOR,
         verbose_name=_("Rating"),
-        **blank_null_none,
+        **BLANK_NULL_NONE,
     )
     type = models.CharField(
         max_length=MAX_LENGTH,
@@ -135,7 +143,7 @@ class FilmworkGenre(UUIDMixin):
 class FilmworkPerson(UUIDMixin):
     """Класс для описания персон кинопроизведения."""
 
-    role = models.TextField(verbose_name=_("Role"), **blank_null_str)
+    role = models.TextField(verbose_name=_("Role"), **BLANK_NULL_STR)
     created_at = models.DateTimeField(auto_now_add=True, verbose_name=_("Created at"))
     filmwork = models.ForeignKey(
         to="Filmwork",

@@ -4,18 +4,9 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-flake8="==3.9.0"
-pytest="==6.2.5"
-pre-commit="==2.15.0"
-wemake-python-styleguide="==0.15.3"
-flake8-bandit="==2.1.2"
-bandit="==1.7.2"
-pylint="==2.15.10"
-autopep8="==1.5.7"
-ipython="==8.9.0"
-jupyter="==1.0.0"
-pylint-django="==2.5.3"
+pytest="==7.2.1"
+black="==23.1.0"
+isort="==5.12.0"
+flake8="==6.0.0"
 mypy="==1.0.0"
-django-stubs="==1.14.0"
-debugpy="==1.5.1"
-flakehell="*"
+

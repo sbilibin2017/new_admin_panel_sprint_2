@@ -2,7 +2,6 @@ from django.contrib.postgres.aggregates import ArrayAgg
 from django.db.models import F, Q
 from django.db.models.functions import Coalesce
 from django.http import JsonResponse
-from django.shortcuts import get_object_or_404
 from django.views.generic.detail import DetailView
 from django.views.generic.list import BaseListView
 from movies.models import Filmwork

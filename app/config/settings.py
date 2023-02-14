@@ -8,9 +8,10 @@ from dotenv import load_dotenv
 from split_settings.tools import include
 
 # корень проекта
-BASE_DIR = Path(__file__).resolve().parent.parent.parent
+BASE_DIR = Path(__file__).resolve().parent.parent
 # загрузка переенных окружения
 load_dotenv(BASE_DIR / ".env")
+
 # секрет джанго
 SECRET_KEY = os.getenv("SECRET_KEY")
 # режим запуска
@@ -24,7 +25,7 @@ ROOT_URLCONF = "config.urls"
 # вебсервер
 WSGI_APPLICATION = "config.wsgi.application"
 # язык
-LANGUAGE_CODE = "ru-RU"
+LANGUAGE_CODE = "en-EN"
 # директория со стотическими файлами
 STATIC_URL = "/static/"
 STATIC_ROOT = BASE_DIR / "static/"
@@ -39,9 +40,7 @@ include(
     "components/middleware.py",
     "components/templates.py",
     "components/auth_password_validators.py",
-    "components/debug_toolbar.py",
     "components/time.py",
     "components/restframework.py",
     "components/logging.py",
-    "components/orm_notebook.py",
 )

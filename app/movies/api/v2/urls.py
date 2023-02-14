@@ -1,6 +1,6 @@
 """Django urls."""
 
-from django.urls import include, path
+from django.urls import path
 from movies.api.v2 import views
 
 urlpatterns = [

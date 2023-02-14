@@ -1,4 +1,4 @@
-version: '3.8'
+version: "3.8"
 services:
   db:
     image: postgres:${POSTGRES_VERSION}
@@ -6,35 +6,28 @@ services:
       - ./db/backup-08-02-2023.sql:/docker-entrypoint-initdb.d/init.sql
       - postgres_data:/var/lib/postgresql/data
     env_file:
-      - ./.env
-
+      - ./db/.env
   app:
-    build: ./app
-    volumes:
+    build:
+      context: ./app
+      dockerfile: Dockerfile   
+    volumes:         
       - ./app:/app
-      - static_volume:/app/static
     expose:
       - 8000
-    ports:
-      - 8888:8888
     env_file:
-      - ./.env
+      - ./app/.env
     depends_on:
       - db
-
-  nginx:
+  nginx: 
     image: nginx:${NGINX_VERSION}
     volumes:
-      - static_volume:/app/static
       - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
-      - ./nginx/conf.d:/etc/nginx/conf.d:ro
-    ports:
-      - 8000:80
+      - ./nginx/conf.d:/etc/nginx/conf.d:ro         
+      - ./app/static:/app/static
     depends_on:
       - app
-
+    ports:
+      - 8000:80
 volumes:
-  postgres_data:
-  static_volume:
-
-
+  postgres_data:  

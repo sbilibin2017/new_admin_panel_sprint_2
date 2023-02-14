@@ -1,5 +1,4 @@
 BEGIN;
-
 -------------------
 -- НАСТРОЙКА СХЕМЫ
 --------------------
@@ -95,6 +94,5 @@ CREATE INDEX "filmwork_genre_filmwork_idx"
 
 CREATE INDEX "filmwork_genre_genre_idx"
     ON "filmwork_genre" ("genre_id");
-
 COMMIT;
 
