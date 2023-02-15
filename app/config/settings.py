@@ -8,10 +8,9 @@ from dotenv import load_dotenv
 from split_settings.tools import include
 
 # корень проекта
-BASE_DIR = Path(__file__).resolve().parent.parent
+BASE_DIR = Path(__file__).resolve().parent.parent.parent
 # загрузка переенных окружения
 load_dotenv(BASE_DIR / ".env")
-
 # секрет джанго
 SECRET_KEY = os.getenv("SECRET_KEY")
 # режим запуска
@@ -43,4 +42,5 @@ include(
     "components/time.py",
     "components/restframework.py",
     "components/logging.py",
+    "components/debug_toolbar.py",
 )

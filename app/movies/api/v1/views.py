@@ -27,14 +27,16 @@ class MoviesViewSet(viewsets.ReadOnlyModelViewSet):
 
     def get_queryset(self):
         """Build queryset."""
-        queryset = self.model.objects.values(
-            "id", "title", "description", "creation_date", "type"
-        ).annotate(
-            rating=Coalesce(F("rating"), float(0)),
-            genres=ArrayAgg("genres__name", distinct=True, default=[]),
-            actors=self.filter_role("actor"),
-            directors=self.filter_role("director"),
-            writers=self.filter_role("writer"),
+        queryset = (
+            self.model.objects.prefetch_related("persons", "genres")
+            .values("id", "title", "description", "creation_date", "type")
+            .annotate(
+                rating=Coalesce(F("rating"), 0.0),
+                genres=ArrayAgg("genres__name", distinct=True, default=[]),
+                actors=self.filter_role("actor"),
+                directors=self.filter_role("director"),
+                writers=self.filter_role("writer"),
+            )
         )
 
         return queryset
