@@ -9,6 +9,19 @@ services:
       - 5432:5432
     env_file:
       - .env.dev
+
+  es:    
+    image: elasticsearch:7.17.9
+    environment:     
+      - xpack.security.enabled=false 
+      - "discovery.type=single-node" 
+    volumes:
+      - es_data:/usr/share/elasticsearch/data 
+    env_file:
+      - .env.dev  
+    ports:
+      - 9200:9200   
+
   app:
     build:
       context: ./app
@@ -21,6 +34,8 @@ services:
       - .env.dev
     depends_on:
       - db
+      - es
+
   nginx: 
     image: nginx:1.21.1
     volumes:
@@ -30,6 +45,10 @@ services:
     depends_on:
       - app
     ports:
-      - 8000:80
+      - 8000:80  
+
 volumes:
   postgres_data:
+  es_data:
+    driver: local
+
