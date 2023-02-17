@@ -57,4 +57,4 @@ class FilmworkAdmin(admin.ModelAdmin):
     # # фильтры
     list_filter = ("type", ("genres__name", custom_titled_filter(_("Genre"))))
     # поиск
-    search_fields = ("title", "description", "id", "persons__full_name")
+    search_fields = ("title",)

@@ -10,17 +10,17 @@ services:
     env_file:
       - .env.dev
 
-  es:    
-    image: elasticsearch:7.17.9
-    environment:     
-      - xpack.security.enabled=false 
-      - "discovery.type=single-node" 
-    volumes:
-      - es_data:/usr/share/elasticsearch/data 
-    env_file:
-      - .env.dev  
-    ports:
-      - 9200:9200   
+  # es:    
+  #   image: elasticsearch:7.17.9
+  #   environment:     
+  #     - xpack.security.enabled=false 
+  #     - "discovery.type=single-node" 
+  #   volumes:
+  #     - es_data:/usr/share/elasticsearch/data 
+  #   env_file:
+  #     - .env.dev  
+  #   ports:
+  #     - 9200:9200   
 
   app:
     build:
