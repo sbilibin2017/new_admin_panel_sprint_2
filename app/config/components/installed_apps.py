@@ -8,8 +8,5 @@ INSTALLED_APPS = [
     "debug_toolbar",
     "django_extensions",
     "rest_framework",
-    "django_elasticsearch_dsl",
-    "django_elasticsearch_dsl_drf",
     "movies.apps.MoviesConfig",
-    "search_indexes.apps.SearchIndexesConfig",
 ]

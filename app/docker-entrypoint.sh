@@ -13,6 +13,10 @@ then
 fi
 
 python3 manage.py migrate --fake 
+python3 manage.py createsuperuser \
+        --noinput \
+        --username $DJANGO_SUPERUSER_USERNAME   
+
 gunicorn -b 0.0.0.0:8000 config.wsgi:application
 
 exec "$@"

@@ -43,5 +43,4 @@ include(
     "components/restframework.py",
     "components/logging.py",
     "components/debug_toolbar.py",
-    "components/elasticsearch.py",
 )

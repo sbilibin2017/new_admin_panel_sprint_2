@@ -14,7 +14,6 @@ fi
 
 python3 manage.py migrate --fake 
 python3 manage.py collectstatic --noinput
-./manage.py search_index --rebuild -f
 python3 manage.py createsuperuser \
         --noinput \
         --username $DJANGO_SUPERUSER_USERNAME   
